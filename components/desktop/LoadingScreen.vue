@@ -24,7 +24,7 @@
         </span>
       </div>
       <div class="window-content">
-        <div class="loading-text">Welcome to Doors95</div>
+        <div class="loading-text">Welcome to HackEd</div>
         <div class="progress-bar">
           <div class="progress-bar-inner" :style="{ width: progress + '%' }"></div>
         </div>

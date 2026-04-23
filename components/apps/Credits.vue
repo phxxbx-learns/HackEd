@@ -1,15 +1,20 @@
 <template>
-    <div class="credits-window window" style="max-width: 400px; max-height: 350px; min-width: 300px;">
+    <div class="credits-window window" style="max-width: 600px; max-height: 600px; min-width: 600px;">
         <div class="window-body">
-            <p class="mb-4 -mt-2">Winners of Hackaburg 2025 (2nd place)</p>
+            <p class="mb-4 -mt-2">CYBERSECURITY PROJECT | BSIT2D</p>
 
             <h2>Team</h2>
             <ul>
-                <li><a href="https://github.com/darius-it" target="_blank" rel="noopener">Darius</a> (hello@darius-it.me)</li>
-                <li><a href="https://github.com/kaifireborn" target="_blank" rel="noopener">Lev</a> (levsoltys@gmail.com)</li>
-                <li><a href="https://github.com/m4r1nus" target="_blank" rel="noopener">Marinus</a></li>
-                <li><a href="https://github.com/matejminar-jpg" target="_blank" rel="noopener">Matej</a> (matejdavidminar@gmail.com)</li>
-                <li><a href="https://github.com/joniprog" target="_blank" rel="noopener">Jonathan</a></li>
+                <li><a>Ma. Phoebe N. Ranon</a> | phranon@my.cspc.edu.ph</li>
+                <li><a>Ana R. Cereno</a> | anacereno@my.cspc.edu.ph</li>
+                <li><a>Princess Catherine S. Cuevas</a> | prcuevas@my.cspc.edu.ph</li>
+                <li><a>Charlotte T. Bea</a> | chbea@my.cspc.edu.ph</li>
+                <li><a>Gwen Stephane M. Rico</a> | gwrico@my.cspc.edu.ph</li>
+                <li><a>Jamilla H. Aninang</a> | jaaninang@my.cspc.edu.ph</li>
+                <li><a>Karen O. Benosa</a> | kabenosa@my.cspc.edu.ph</li>
+                <li><a>Princess Rose R. Perez</a> | prperez@my.cspc.edu.ph</li>
+                <li><a>Princis Diana D. Tercero</a> | prtercero@my.cspc.edu.ph</li>
+                <li><a>Richel S. Duay</a> | riduay@my.cspc.edu.ph</li>
             </ul>
             <hr class="mt-4">
             <hr class="mb-4">

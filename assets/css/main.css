@@ -10,10 +10,42 @@
 
 body {
     font-family: 'Windows 95', sans-serif;
-    background-color: #008081;
-}
+    background-image: url('/images/desktop.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+  }
 
 @theme {
     --color-bottom-bar: #c0c0c0;
     --color-primary-button: #c0c0c0;
+}
+
+/* Force Windows 95 fonts on all minigames */
+.ext-window, .pw-window, .usb-window, .upd-window, .priv-window,
+.ext-window *, .pw-window *, .usb-window *, .upd-window *, .priv-window * {
+  font-family: 'Windows 95', 'Tahoma', 'MS Sans Serif', monospace;
+}
+
+/* Pixelated rendering for all Windows 95 elements */
+.ext-window, .pw-window, .usb-window, .upd-window, .priv-window,
+.win95-btn, .cat-btn, .choice-btn, .perm-btn, .q-btn {
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}
+
+/* Windows 95 style borders for all buttons in minigames */
+.ext-window button, .pw-window button, .usb-window button, 
+.upd-window button, .priv-window button {
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  background: #c0c0c0;
+}
+
+.ext-window button:active, .pw-window button:active, 
+.usb-window button:active, .upd-window button:active, 
+.priv-window button:active {
+  border-color: #808080 #ffffff #ffffff #808080;
 }

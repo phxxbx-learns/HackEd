@@ -20,7 +20,7 @@
             <hr class="mb-4">
             <h2 class="mb-1">Project</h2>
             <a href="https://github.com/phxxbx-learns/HackEd" target="_blank" rel="noopener">
-                View on GitHub
+                Click to View on GitHub
             </a>
         </div>
     </div>

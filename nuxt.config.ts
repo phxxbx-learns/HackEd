@@ -8,11 +8,15 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   app: {
-    baseURL: '/HackEd/'
+    baseURL: '/HackEd/',
+    buildAssetsDir: '/_nuxt/'
   },
 
   nitro: {
-    preset: 'static'
+    preset: 'static',
+    output: {
+      publicDir: 'dist'
+    }
   },
 
   vite: {

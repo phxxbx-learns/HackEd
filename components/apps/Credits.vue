@@ -19,7 +19,7 @@
             <hr class="mt-4">
             <hr class="mb-4">
             <h2 class="mb-1">Project</h2>
-            <a href="https://github.com/darius-it/doors95" target="_blank" rel="noopener">
+            <a href="https://github.com/phxxbx-learns/HackEd" target="_blank" rel="noopener">
                 View on GitHub
             </a>
         </div>

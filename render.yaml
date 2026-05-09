@@ -1,0 +1,5 @@
+services:
+  - type: static
+    name: hacked
+    buildCommand: npm install && npm run generate
+    publishPath: dist

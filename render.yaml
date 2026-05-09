@@ -1,5 +1,10 @@
 services:
   - type: static
     name: hacked
-    buildCommand: npm install && npm run generate
+    buildCommand: npm install --no-package-lock --legacy-peer-deps && npm run generate
     publishPath: dist
+    envVars:
+      - key: NPM_CONFIG_PRODUCTION
+        value: false
+      - key: USE_NPM
+        value: true

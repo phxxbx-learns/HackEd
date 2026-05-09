@@ -179,6 +179,8 @@ The Amazon Prize Team`,
   }
 ]);
 
+import { useMissionsStore } from '~/stores/missions'
+
 const selectedMail = ref(null);
 const missionsStore = useMissionsStore();
 const payloadStore = usePayloadsStore();

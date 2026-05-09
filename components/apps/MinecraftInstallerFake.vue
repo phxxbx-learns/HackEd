@@ -31,6 +31,7 @@
 
 <script setup>
 import { ref, computed } from 'vue';
+import { useMissionsStore } from '~/stores/missions'
 
 const versions = ref([
   '1.19.99',

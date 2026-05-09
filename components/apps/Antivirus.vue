@@ -56,6 +56,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { useMissionsStore } from '~/stores/missions'
 
 const missionInfo = useMissionsStore();
 const payloadsState = usePayloadsStore();

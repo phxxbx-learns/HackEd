@@ -1,9 +1,8 @@
 <template>
-  <div class="gap-1 flex flex-col items-center justify-center" @click="openWindow">
-    <div class="self-center flex flex-col items-center justify-center">
+  <div class="desktop-icon" @click="openWindow">
+    <div class="icon-image">
       <slot />
     </div>
-
     <p class="icon-label">{{ windowName }}</p>
   </div>
 </template>
@@ -18,23 +17,41 @@ const props = defineProps({
 
 const emit = defineEmits(['openWindow']);
 
-const isWindowOpen = ref(false);
-
 const openWindow = () => {
-  isWindowOpen.value = !isWindowOpen.value;
   emit('openWindow', props.windowName);
 };
 </script>
 
 <style scoped>
+.desktop-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.desktop-icon:hover {
+  background: rgba(0, 0, 128, 0.3);
+  outline: 1px dotted white;
+}
+
+.icon-image {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .icon-label {
-  font-size: 0.75rem;
-  color: #ffffff;
+  font-size: 11px;
+  color: white;
   text-align: center;
-  font-family: 'Windows 95', 'Tahoma', 'MS Sans Serif', sans-serif;
+  font-family: 'Windows 95', 'Tahoma', monospace;
   text-shadow: 1px 1px 0 #000000;
   margin-top: 4px;
-  letter-spacing: 0.5px;
-  font-weight: normal;
 }
 </style>

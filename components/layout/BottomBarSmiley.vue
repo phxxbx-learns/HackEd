@@ -5,6 +5,8 @@
 </template>
 
 <script lang="ts" setup>
+import { useMissionsStore } from '~/stores/missions'
+
 const { infectionLevel } = storeToRefs(useMissionsStore())
 
 const windows = useOpenWindowsStore()

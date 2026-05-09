@@ -1,30 +1,29 @@
 <template>
   <div 
-    class="absolute top-0 left-0 w-full h-full bg-transparent flex flex-col items-center justify-center pointer-events-none overflow-hidden"
+    class="window-overlay"
     :style="{ zIndex: windowZIndex }"
     v-show="isOpen"
   >
     <div
       ref="el"
-      class="absolute min-w-[400px] min-h-[220px] bg-[#c0c0c0] border-2 border-white border-b-[#808080] border-r-[#808080] shadow-[4px_4px_0_#0008] rounded-none select-none pointer-events-auto"
+      class="window"
       :style="style"
-      @click="$emit('clickInsideWindow', name)"
+      @mousedown="bringToFront"
     >
       <div
-        class="flex items-center justify-between bg-[#000181] text-white px-2 py-1 cursor-move font-bold tracking-wider text-[10px] font-['Windows_95',Arial,sans-serif] border-b-2 border-white rounded-t-[2px]"
+        class="window-titlebar"
         ref="dragHandle"
-        style="cursor: move"
+        @mousedown="startDrag"
       >
-        <span class="font-bold tracking-widest">{{ name }}</span>
+        <span class="window-title">{{ name }}</span>
         <button
-          class="bg-[#c0c0c0] border-2 border-white outset-border text-black w-6 h-6 text-base leading-5 text-center cursor-pointer ml-2 rounded-[2px] font-['MS_Sans_Serif',Arial,sans-serif] transition-colors duration-100 hover:bg-red-600 hover:text-white"
+          class="window-close"
           @click="emit('close', name)"
-          aria-label="Close"
         >
           ✕
         </button>
       </div>
-      <div class="p-1 h-[calc(100%-36px)] overflow-auto">
+      <div class="window-content">
         <slot />
       </div>
     </div>
@@ -32,8 +31,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useDraggable } from '@vueuse/core'
-
 const props = defineProps({
   name: {
     type: String,
@@ -44,51 +41,172 @@ const props = defineProps({
     default: '',
   },
   currentlyOpenWindows: {
-    type: Array
+    type: Array as () => string[],
+    default: () => []
   },
 })
 
 const emit = defineEmits(['close', 'clickInsideWindow'])
+
 const el = ref<HTMLElement | null>(null)
 const dragHandle = ref<HTMLElement | null>(null)
 
+// Window positioning
+const x = ref(200)
+const y = ref(100)
+let isDragging = false
+let dragStartX = 0
+let dragStartY = 0
+let initialX = 0
+let initialY = 0
+
+const style = computed(() => ({
+  left: `${x.value}px`,
+  top: `${y.value}px`,
+  position: 'absolute' as const,
+}))
+
 const windowZIndex = computed(() => {
-  return props.lastClickedWindow === props.name ? 1000 : 0
+  return props.lastClickedWindow === props.name ? 1000 : 900
 })
 
 const isOpen = computed(() => {
-  if (!props.currentlyOpenWindows) {
-    return false
-  }
   return props.currentlyOpenWindows.includes(props.name)
 })
 
-const { x, y, style } = useDraggable(el, {
-  handle: dragHandle,
-  initialValue: { 
-    x: 1000, 
-    y: 450
-  },
-  onStart: () => {
-    emit('clickInsideWindow', props.name)
-  },
-})
+function bringToFront() {
+  emit('clickInsideWindow', props.name)
+}
 
-let initialized = false
+function startDrag(e: MouseEvent) {
+  if (!el.value) return
+  isDragging = true
+  dragStartX = e.clientX - x.value
+  dragStartY = e.clientY - y.value
+  initialX = x.value
+  initialY = y.value
+  
+  document.addEventListener('mousemove', onDrag)
+  document.addEventListener('mouseup', stopDrag)
+  bringToFront()
+}
 
-onMounted(async () => {
-  await nextTick()
-  if (el.value && !initialized) {
-    // Center the window
-    x.value = 370
-    y.value = 75
-    initialized = true
+function onDrag(e: MouseEvent) {
+  if (!isDragging) return
+  x.value = Math.max(0, Math.min(window.innerWidth - 300, e.clientX - dragStartX))
+  y.value = Math.max(0, Math.min(window.innerHeight - 200, e.clientY - dragStartY))
+}
+
+function stopDrag() {
+  isDragging = false
+  document.removeEventListener('mousemove', onDrag)
+  document.removeEventListener('mouseup', stopDrag)
+}
+
+// Center window on first open
+watch(() => props.currentlyOpenWindows, (newWindows, oldWindows) => {
+  if (newWindows.includes(props.name) && !oldWindows?.includes(props.name)) {
+    x.value = Math.max(20, Math.min(window.innerWidth - 400, 200))
+    y.value = Math.max(20, Math.min(window.innerHeight - 300, 100))
   }
+}, { deep: true })
+
+onUnmounted(() => {
+  document.removeEventListener('mousemove', onDrag)
+  document.removeEventListener('mouseup', stopDrag)
 })
 </script>
 
 <style scoped>
-.outset-border {
-  border: 2px outset #fff;
+.window-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.window {
+  position: absolute;
+  min-width: 400px;
+  min-height: 220px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  box-shadow: 4px 4px 0 #00000040;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.window-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #000080;
+  color: white;
+  padding: 4px 8px;
+  cursor: move;
+  font-family: 'Windows 95', 'Tahoma', monospace;
+  font-size: 12px;
+  font-weight: bold;
+  border-bottom: 2px solid #ffffff;
+}
+
+.window-title {
+  flex: 1;
+  letter-spacing: 1px;
+}
+
+.window-close {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  color: black;
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: monospace;
+}
+
+.window-close:active {
+  border-color: #808080 #ffffff #ffffff #808080;
+}
+
+.window-content {
+  flex: 1;
+  padding: 8px;
+  overflow: auto;
+  background: #c0c0c0;
+}
+
+/* Windows 95 scrollbar */
+.window-content::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+.window-content::-webkit-scrollbar-track {
+  background: #c0c0c0;
+  border: 1px solid #808080;
+}
+
+.window-content::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+}
+
+.window-content::-webkit-scrollbar-button {
+  background: #c0c0c0;
+  border: 1px solid #808080;
+  width: 16px;
+  height: 16px;
 }
 </style>

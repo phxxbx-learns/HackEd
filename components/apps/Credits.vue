@@ -6,7 +6,7 @@
             <h2>Team</h2>
             <ul>
                 <li><a>Ma. Phoebe N. Ranon</a> | phranon@my.cspc.edu.ph</li>
-                <li><a>Ana R. Cereno</a> | anacereno@my.cspc.edu.ph</li>
+                <li><a>Ana R. Cereno</a> | anacereno10@my.cspc.edu.ph</li>
                 <li><a>Princess Catherine S. Cuevas</a> | prcuevas@my.cspc.edu.ph</li>
                 <li><a>Charlotte T. Bea</a> | chbea@my.cspc.edu.ph</li>
                 <li><a>Gwen Stephane M. Rico</a> | gwrico@my.cspc.edu.ph</li>

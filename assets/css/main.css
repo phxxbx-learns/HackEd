@@ -23,6 +23,30 @@ body {
     --color-primary-button: #c0c0c0;
 }
 
+/* Windows 95 base styles */
+* {
+  box-sizing: border-box;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}
+
+/* Fix for draggable windows */
+.dragging {
+  user-select: none;
+  cursor: move;
+}
+
+/* Ensure all windows have proper z-index stacking */
+.window-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.window-overlay > div {
+  pointer-events: auto;
+}
+
 /* Force Windows 95 fonts on all minigames */
 .ext-window, .pw-window, .usb-window, .upd-window, .priv-window,
 .ext-window *, .pw-window *, .usb-window *, .upd-window *, .priv-window * {
